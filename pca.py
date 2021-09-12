@@ -11,7 +11,6 @@ import matplotlib.pyplot as plt
 import cv2
 import numpy as np
 from sklearn.decomposition import PCA
-
 def plot_func(y,plt_file,plt_title,dim,jump,start):
   x =  range(start,dim+1,jump)
   plt.plot(x, y, color='red', marker='o', markerfacecolor='red', markersize=3)
@@ -23,16 +22,19 @@ def plot_func(y,plt_file,plt_title,dim,jump,start):
   plt.savefig(plt_file)
   plt.close()
   return
-
+# loading data set
 digits = datasets.load_digits()
+# reshaping data
 n_samples = len(digits.images)
 image = digits.images
 data = digits.images.reshape((n_samples, -1))
+# fitting pca to the data
 dim = data.shape[1]
 variance = np.zeros((dim-1))
 pca = PCA(n_components=dim)
 pca.fit(data)
 var = pca.explained_variance_ratio_
+# finding the numer of component to get 0.99 of variance
 variance[0] = var[0] + var[1]
 for i in range(1,dim-1):
   variance[i] = variance[i-1] + var[i+1]
