@@ -31,6 +31,7 @@ def Create_Histogam(data):
   return histogram
 
 def Create_data_label(data,label,dim,start,stop):
+  # one hot encoding for labels
   New_data = np.zeros((1,dim),dtype=data.dtype)
   New_label = np.zeros((1,10),dtype=label.dtype)
   for i in range(10):
@@ -47,15 +48,19 @@ def Create_data_label(data,label,dim,start,stop):
 (TrainX, TrainY), (TestX, TestY) = mnist.load_data()
 train_histogram = Create_Histogam(TrainY)
 test_histogram = Create_Histogam(TestY)
+#change each image to a vector
 train_samples = len(TrainX)
 trainX = TrainX.reshape((train_samples,-1)).astype(np.float64)
 test_samples = len(TestX)
 testX = TestX.reshape((test_samples,-1)).astype(np.float64)
 dim = (trainX.shape)[1]
+# normalize each vector to 0 mean and 1 std
 for i in range(train_samples):
   trainX[i] = (trainX[i]-np.mean(trainX[i]))/np.std(trainX[i])
 for i in range(test_samples):
   testX[i] = (testX[i]-np.mean(testX[i]))/np.std(testX[i])
+
+"""Fitting PCA to train vector and applying it to test and train vectors"""
 
 variance = np.zeros((dim-1))
 pca = PCA(n_components=dim)
@@ -79,6 +84,8 @@ pca.fit(trainX)
 pca_trainX = pca.transform(trainX)
 pca_testX = pca.transform(testX)
 
+"""defining model"""
+
 def My_model(n):
   tf.config.experimental.list_logical_devices('GPU')
   tf.debugging.set_log_device_placement(True)
@@ -89,12 +96,16 @@ def My_model(n):
       model.compile(optimizer="Adam", loss='categorical_crossentropy', metrics=['accuracy'])
       return model
 
+"""Fitting and testing the model"""
+
 train_X,train_Y = Create_data_label(pca_trainX,TrainY,n,0,int(np.min(train_histogram)))
 test_X,test_Y = Create_data_label(pca_testX,TestY,n,0,int(np.min(test_histogram)))
 with tf.device(tf.test.gpu_device_name()):
   model = My_model(n)
   model.fit(train_X,train_Y, epochs=40)
   loss,precision =  model.evaluate(train_X,train_Y)
+
+"""Final result"""
 
 print(f'The precision of network is {precision}.')
 print(f'The loss of network is {loss}.')
