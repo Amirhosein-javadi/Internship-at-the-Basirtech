@@ -45,6 +45,8 @@ def Create_data_label(data,label,dim,start,stop):
   New_label = np.delete(New_label,0,0)
   return New_data,New_label
 
+"""Loading dataset and converting every image to a vector and normalizing it to 0 mean and 1 std"""
+
 (TrainX, TrainY), (TestX, TestY) = mnist.load_data()
 train_histogram = Create_Histogam(TrainY)
 test_histogram = Create_Histogam(TestY)
