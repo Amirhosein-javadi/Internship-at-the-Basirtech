@@ -7,6 +7,8 @@ Original file is located at
     https://colab.research.google.com/drive/1MGcDTKeh83fGuKgQTs2c6AFYSMtzq3uC
 """
 
+!git clone https://github.com/Amirhosein-javadi/internship-at-the-Basirtech.git
+
 pip install libsvm
 
 """Imports"""
@@ -69,8 +71,7 @@ except:
 
 """Loading and resizing fat plates to size 30*60"""
 
-# file at https://drive.google.com/drive/folders/1wb_XZy7WcVPkecwVEDL0X8HTxTtVMx63?usp=sharing
-Filenames1 = glob.glob('/content/drive/MyDrive/Intern/plates/fat/*')
+Filenames1 = glob.glob('/content/internship-at-the-Basirtech/images/fat/*')
 for i in range(len(Filenames1)):
     name1 = Filenames1[i]
     img1 = cv2.imread(name1)
@@ -80,8 +81,7 @@ for i in range(len(Filenames1)):
 
 """Loading and resizing tall plates to size 30*60"""
 
-# file at https://drive.google.com/drive/folders/1uphP3yClA3aJbWrHnyhHCjU0jR-KBVxQ?usp=sharing
-Filenames2 = glob.glob('/content/drive/MyDrive/Intern/plates/tall/*')
+Filenames2 = glob.glob('/content/internship-at-the-Basirtech/images/tall/*')
 for i in range(len(Filenames2)):
      name2 = Filenames2[i]
      img2 = cv2.imread(name2)
@@ -91,8 +91,7 @@ for i in range(len(Filenames2)):
 
 """Creating random images from car images"""
 
-# file at https://drive.google.com/drive/folders/1O83SCVaVEYQBV_7Wrouh3n-gqDYgzIFh?usp=sharing
-filename = glob.glob('/content/drive/MyDrive/Intern/car img/*')
+filename = glob.glob('/content/internship-at-the-Basirtech/images/car img/*')
 k = 1
 for i in range(len(filename)):
     name = filename[i]
