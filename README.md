@@ -2,8 +2,9 @@
 
 Codes, Source, Results and Report of Internship at the Basirtech company.
 
-In this part I'm trying to summerize my report. So please check my report for more detail.
-
+---
+**In this part I'm trying to summerize my report. So please check my report for more detail.**
+---
 Project contains:
 1. PCA
 2. SVM
